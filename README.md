@@ -18,5 +18,5 @@ find the funny link 🚀
 
 #weareLegion
 
-by kArma
+by kArmaSec
 
