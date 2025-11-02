@@ -31,12 +31,14 @@ def test_phone_extraction():
     test_text = """
     Call us at 555-123-4567 or 555.987.6543
     Alternative: 5551112222
+    International: +1-555-123-4567
+    US Format: (555) 123-4567
     """
     
     phones = scraper.extract_phone_numbers(test_text)
     print("\nTesting phone extraction...")
     print(f"  Found {len(phones)} phone numbers: {phones}")
-    assert len(phones) >= 2
+    assert len(phones) >= 3
     print("  ✓ Phone extraction working!")
 
 

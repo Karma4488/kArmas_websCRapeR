@@ -28,10 +28,11 @@ class KarmasScraper:
         
         # User agents for stealth
         self.user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0'
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15'
         ]
         
     def log(self, message, level="INFO"):
@@ -66,8 +67,17 @@ class KarmasScraper:
     
     def extract_phone_numbers(self, text):
         """Extract phone numbers from text"""
-        phone_pattern = r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b'
-        return list(set(re.findall(phone_pattern, text)))
+        # Multiple patterns for different formats
+        patterns = [
+            r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b',  # US format
+            r'\(\d{3}\)\s*\d{3}[-.]?\d{4}',     # (555) 123-4567
+            r'\+\d{1,3}[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}',  # International
+        ]
+        
+        phones = []
+        for pattern in patterns:
+            phones.extend(re.findall(pattern, text))
+        return list(set(phones))
     
     def extract_social_media(self, text):
         """Extract social media links"""
@@ -105,6 +115,8 @@ class KarmasScraper:
     
     def check_xss_vulnerable(self, url):
         """Basic XSS vulnerability check"""
+        from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
+        
         xss_payloads = [
             '<script>alert(1)</script>',
             '"><script>alert(1)</script>',
@@ -112,27 +124,53 @@ class KarmasScraper:
         ]
         
         vulnerabilities = []
+        parsed = urlparse(url)
+        
         for payload in xss_payloads:
-            test_url = f"{url}?test={payload}"
+            # Handle existing query parameters
+            params = parse_qs(parsed.query)
+            params['test'] = payload
+            
+            new_query = urlencode(params, doseq=True)
+            test_url = urlunparse((
+                parsed.scheme, parsed.netloc, parsed.path,
+                parsed.params, new_query, parsed.fragment
+            ))
+            
             response = self.make_request(test_url)
             
             if response and payload in response.text:
-                vulnerabilities.append({
-                    'type': 'Potential XSS',
-                    'payload': payload,
-                    'url': test_url
-                })
-                self.log(f"Potential XSS found with payload: {payload}", "WARNING")
+                # Check if payload is in executable context (basic check)
+                if '<script>' in response.text and 'alert(1)' in response.text:
+                    vulnerabilities.append({
+                        'type': 'Potential XSS',
+                        'payload': payload,
+                        'url': test_url
+                    })
+                    self.log(f"Potential XSS found with payload: {payload}", "WARNING")
         
         return vulnerabilities
     
     def check_sql_injection(self, url):
         """Basic SQL injection check"""
+        from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
+        
         sql_payloads = ["'", "' OR '1'='1", "1' OR '1'='1"]
         
         vulnerabilities = []
+        parsed = urlparse(url)
+        
         for payload in sql_payloads:
-            test_url = f"{url}?id={payload}"
+            # Handle existing query parameters
+            params = parse_qs(parsed.query)
+            params['id'] = payload
+            
+            new_query = urlencode(params, doseq=True)
+            test_url = urlunparse((
+                parsed.scheme, parsed.netloc, parsed.path,
+                parsed.params, new_query, parsed.fragment
+            ))
+            
             response = self.make_request(test_url)
             
             if response:
