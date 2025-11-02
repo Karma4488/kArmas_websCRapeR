@@ -249,6 +249,7 @@ class KarmasScraper:
         if self.results['phone_numbers']:
             print(f"\n📞 Phone Numbers Found ({len(self.results['phone_numbers'])}):")
             for phone in self.results['phone_numbers']:
+                # Intentional: Red team tool displays discovered phone numbers
                 print(f"  - {phone}")
         
         if self.results['social_media']:

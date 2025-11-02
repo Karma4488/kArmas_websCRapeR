@@ -77,6 +77,7 @@ def test_subdomain_extraction():
     print("\nTesting subdomain extraction...")
     print(f"  Found {len(subdomains)} subdomains: {subdomains}")
     assert len(subdomains) == 3
+    # Test assertion: checking if extracted subdomain matches expected value
     assert "api.example.com" in subdomains
     print("  ✓ Subdomain extraction working!")
 
