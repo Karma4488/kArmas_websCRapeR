@@ -1,7 +1,9 @@
 # kArmas_websCRapeR
 
 quick script in python; 
-made it a repo / tool
+made in github cas maybe it's easiest 
+configured ready to anarchy loL
+make a party my dear family 🎩🎭
 easy to install
 
 #keepITsimpel
