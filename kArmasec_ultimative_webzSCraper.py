@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Professionelt scraper-script (requests + BeautifulSoup).
-Respekter robots.txt og kør med ansvar.
+ Get = robots.txt og kør med ansvar.
 """
 import requests
 from bs4 import BeautifulSoup
