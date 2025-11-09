@@ -115,6 +115,11 @@ yea code is more 'sprog' : D -------(-_-)----
 
 **by kArmaSec**
 
+from one redhat tp another 🎩
+
+RedTeamer
+
+
 ---
 
 *Remember: With great power comes great responsibility.be a badass, but be ethical.* 👽
