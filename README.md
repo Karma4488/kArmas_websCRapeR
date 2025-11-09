@@ -107,8 +107,14 @@ Find the funny links 🚀
 
 #weareLegion #keepITsimpel
 
+for my Anonymous & Lulzsec friends 
+
+made in l0v3 
+
+yea code is more 'sprog' : D -------(-_-)----
+
 **by kArmaSec**
 
 ---
 
-*Remember: With great power comes great responsibility. Be a badass, but be ethical.* 👽
+*Remember: With great power comes great responsibility.be a badass, but be ethical.* 👽
