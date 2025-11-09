@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Professionelt scraper-script (requests + BeautifulSoup).
-robots.txt og kør med ansvar.
+ scape.robots.txt 
 """
 import requests
 from bs4 import BeautifulSoup
@@ -12,7 +12,7 @@ import sys
 import os
 
 # Konfiguration
-BASE_URL = "https://yourtarget.com"
+BASE_URL = "https://btc-net.bg"
 OUTPUT_DIR = "index.html"
 USER_AGENT = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
