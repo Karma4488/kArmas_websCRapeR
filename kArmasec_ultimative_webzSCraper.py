@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Professionelt scraper-script (requests + BeautifulSoup).
- scape.robots.txt 
+Professionelt scraper-script (requests + import BeautifulSoup as bs4
 """
 import requests
 from bs4 import BeautifulSoup
@@ -12,11 +11,11 @@ import sys
 import os
 
 # Konfiguration
-BASE_URL = "https://btc-net.bg"
+BASE_URL = "https://yourtarget.com"
 OUTPUT_DIR = "index.html"
 USER_AGENT = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-RATE_DELAY_SECONDS = 1.5   # respekter siden ved at rate-limit
+RATE_DELAY_SECONDS = 10  # respekter siden ved at rate-limit
 MAX_PAGES = 20             # sikkerhedsgrænse: maks antal sider der hentes
 
 # Logging
@@ -140,7 +139,7 @@ BASE_URL = "https://target.com"
 OUTPUT_DIR = "index.html"
 USER_AGENT = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-RATE_DELAY_SECONDS = 1.5
+RATE_DELAY_SECONDS = 10
 MAX_PAGES = 20
 MAX_RETRIES = 2
 RETRY_BACKOFF = 2  # multiplicativ backoff i sekunder
