@@ -26,9 +26,10 @@ run script : D
 
 made in l0v3 by kArmaSec for my Anonymous & Lulzsec friends👽🚀🫂🏴‍☠️🎩
 
-find the funny link 🚀
+find the funny links🚀
 
 #weareLegion
 
-by kArmaSec
+
+made in l0v3 by kArmaSec
 
