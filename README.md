@@ -2,7 +2,7 @@
 
 **A badass web scraping tool for red teamers**
 
-Quick script in Python - made it a repo/tool for the community.
+Quick script in Python - made it a repo/tool for the community 👽🚀🫂🏴‍☠️🎩
 Easy to install and use!
 
 ## Features 💪
