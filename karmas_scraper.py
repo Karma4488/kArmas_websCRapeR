@@ -96,6 +96,24 @@ class KarmasScraper:
                 social_links[platform] = list(set(matches))
         return social_links
     
+    def extract_crypto_wallets(self, text):
+        """Extract cryptocurrency wallet addresses"""
+        crypto_patterns = {
+            'bitcoin': r'\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b',  # Bitcoin P2PKH/P2SH
+            'ethereum': r'\b0x[a-fA-F0-9]{40}\b',  # Ethereum
+            'litecoin': r'\b[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}\b',  # Litecoin
+            'dogecoin': r'\bD{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}\b',  # Dogecoin
+            'monero': r'\b4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}\b',  # Monero
+            'ripple': r'\br[0-9a-zA-Z]{24,34}\b',  # Ripple/XRP
+        }
+        
+        wallets = {}
+        for crypto, pattern in crypto_patterns.items():
+            matches = re.findall(pattern, text)
+            if matches:
+                wallets[crypto] = list(set(matches))
+        return wallets
+    
     def extract_subdomains(self, text, domain):
         """Extract subdomains from text"""
         subdomain_pattern = rf'\b[a-zA-Z0-9][-a-zA-Z0-9]*\.{re.escape(domain)}\b'
@@ -218,6 +236,9 @@ class KarmasScraper:
         self.log("Extracting social media links...")
         self.results['social_media'] = self.extract_social_media(html)
         
+        self.log("Extracting cryptocurrency wallets...")
+        self.results['crypto_wallets'] = self.extract_crypto_wallets(html)
+        
         self.log("Extracting subdomains...")
         self.results['subdomains'] = self.extract_subdomains(html, domain)
         
@@ -258,6 +279,13 @@ class KarmasScraper:
                 print(f"  {platform.upper()}:")
                 for link in links:
                     print(f"    - {link}")
+        
+        if self.results['crypto_wallets']:
+            print(f"\n💰 Cryptocurrency Wallets Found:")
+            for crypto, wallets in self.results['crypto_wallets'].items():
+                print(f"  {crypto.upper()}:")
+                for wallet in wallets:
+                    print(f"    - {wallet}")
         
         if self.results['subdomains']:
             print(f"\n🌐 Subdomains Found ({len(self.results['subdomains'])}):")

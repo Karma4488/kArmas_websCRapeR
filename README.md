@@ -11,6 +11,7 @@ Easy to install and use!
   - 📧 Email extraction
   - 📞 Phone number extraction
   - 📱 Social media link discovery (Twitter, LinkedIn, Facebook, GitHub, Instagram)
+  - 💰 Cryptocurrency wallet detection (Bitcoin, Ethereum, Litecoin, Dogecoin, Monero, Ripple)
   - 🌐 Subdomain enumeration
   - 🔗 Link crawling
 
@@ -79,6 +80,12 @@ python karmas_scraper.py -u https://example.com --no-stealth
     - twitter.com/example
   LINKEDIN:
     - linkedin.com/in/example
+
+💰 Cryptocurrency Wallets Found:
+  BITCOIN:
+    - 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+  ETHEREUM:
+    - 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEbA
 
 🔗 Links Found (42):
   - https://example.com/about

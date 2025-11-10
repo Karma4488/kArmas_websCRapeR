@@ -102,6 +102,29 @@ def test_link_extraction():
     print("  ✓ Link extraction working!")
 
 
+def test_crypto_wallet_extraction():
+    """Test cryptocurrency wallet extraction"""
+    scraper = KarmasScraper("https://example.com", verbose=False)
+    
+    test_text = """
+    Bitcoin: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+    Ethereum: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEbA
+    Litecoin: LdP8Qox1VAhCzLJNqrr74YovaWYyNBUWvL
+    Dogecoin: DG2mPCnCPXzbwiqKpE1husv3FA9s5t1WMt
+    Monero: 44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A
+    Ripple: rN7n7otQDd6FczFgLdlqtyMVrn3HMfNL1h
+    """
+    
+    wallets = scraper.extract_crypto_wallets(test_text)
+    print("\nTesting crypto wallet extraction...")
+    print(f"  Found {len(wallets)} wallet types: {list(wallets.keys())}")
+    assert 'bitcoin' in wallets
+    assert 'ethereum' in wallets
+    assert len(wallets['bitcoin']) >= 1
+    assert len(wallets['ethereum']) >= 1
+    print("  ✓ Crypto wallet extraction working!")
+
+
 def main():
     """Run all tests"""
     print("="*60)
@@ -112,6 +135,7 @@ def main():
         test_email_extraction()
         test_phone_extraction()
         test_social_media_extraction()
+        test_crypto_wallet_extraction()
         test_subdomain_extraction()
         test_link_extraction()
         

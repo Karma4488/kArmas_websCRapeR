@@ -40,6 +40,7 @@ python karmas_scraper.py -u https://target.com -v
 - 📧 **Email Addresses**: Extracts all email addresses from the page
 - 📞 **Phone Numbers**: Finds phone numbers in various formats
 - 📱 **Social Media**: Discovers Twitter, LinkedIn, Facebook, GitHub, Instagram links
+- 💰 **Cryptocurrency Wallets**: Detects Bitcoin, Ethereum, Litecoin, Dogecoin, Monero, and Ripple wallet addresses
 - 🌐 **Subdomains**: Identifies subdomains mentioned on the page
 - 🔗 **Links**: Crawls and lists all links found
 
@@ -59,6 +60,7 @@ python karmas_scraper.py -u https://target.com -v > recon.txt
 Look for:
 - Contact emails for phishing campaigns
 - Social media accounts for OSINT
+- Cryptocurrency wallets for financial intelligence
 - Subdomains for expanded attack surface
 - Links to other properties
 
@@ -108,6 +110,13 @@ Use for:
 - Employee profiling
 - Company culture research
 - Attack vector identification
+
+### Cryptocurrency Wallets
+Use for:
+- Financial intelligence gathering
+- Tracking payment flows
+- Identifying funding sources
+- Transaction analysis on blockchain explorers
 
 ### Subdomain Discovery
 Use for:
