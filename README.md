@@ -1,11 +1,11 @@
-# kArmas_websCRapeR 🚀🏴‍☠️
+# kArmas_websCRapeR 
 
 **A badass web scraping tool for red teamers**
 
-Quick script in Python - made it a repo/tool for the community 👽🚀🫂🏴‍☠️🎩
+Quick script in Python - made it a repo/tool for the community 
 Easy to install and use!
 
-## Features 💪
+## Features 
 
 - **Information Gathering**
   - 📧 Email extraction
@@ -67,7 +67,7 @@ python karmas_scraper.py -u https://example.com --no-stealth
 ## Example Output
 
 ```
-🚀 kArma's Web Scraper - Red Team Edition 🏴‍☠️
+ kArma's Web Scraper - Red Team Edition 🏴‍☠️
 ============================================================
 
 📧 Emails Found (3):
@@ -93,7 +93,7 @@ python karmas_scraper.py -u https://example.com --no-stealth
   ...
 ```
 
-## Disclaimer ⚠️
+## Disclaimer 
 
 This tool is for **educational and authorized security testing purposes only**. 
 Always obtain proper authorization before scanning any target.
@@ -103,30 +103,27 @@ Always obtain proper authorization before scanning any target.
 - Be responsible with the information you discover
 - Know and follow your local laws
 
-## Red Team Tips 🎯
+## Red Team Tips 
 
 - Use stealth mode when conducting OSINT
 - Combine with other recon tools for maximum effectiveness
 - Document your findings properly
 - Always maintain opsec
 
-Find the funny links 🚀
+Find the funny links 
+
 
 #weareLegion #keepITsimpel
 
 for my Anonymous & Lulzsec friends 
 
-made in l0v3 
+made in l0v3 by kArmasec
 
-yea code is more 'sprog' : D -------(-_-)----
-
-**by kArmaSec**
-
-from one redhat tp another 🎩
+from one redhat tp another 
 
 RedTeamer
 
 
 ---
 
-*Remember: With great power comes great responsibility.be a badass, but be ethical.* 👽
+*Remember: With great power comes great responsibility.be a badass, but be ethical.* 
