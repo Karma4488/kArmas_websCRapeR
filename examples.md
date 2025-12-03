@@ -1,4 +1,4 @@
-# kArma's Web Scraper - Usage Examples 🚀
+# kArma's Web Scraper - Usage Examples 
 
 ## Basic Usage
 
@@ -48,7 +48,7 @@ python karmas_scraper.py -u https://target.com -v
 - ⚠️ **XSS Detection**: Tests for potential Cross-Site Scripting vulnerabilities
 - 💉 **SQL Injection**: Checks for potential SQL injection points
 
-## Red Teaming Tips 🎯
+## Red Teaming Tips 
 
 ### 1. Information Gathering Phase
 Start with basic reconnaissance:
@@ -128,7 +128,6 @@ Use for:
 - **XSS**: Potential injection points for client-side attacks
 - **SQLi**: Database interaction points to test further
 
-## Safety and Ethics ⚠️
 
 **IMPORTANT**: Only use on systems you own or have explicit written permission to test!
 
