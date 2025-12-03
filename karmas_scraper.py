@@ -11,7 +11,7 @@ import argparse
 import time
 import sys
 import random
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlencode, parse_qs, urlunparse
 from collections import defaultdict
 from datetime import datetime
 
@@ -80,7 +80,13 @@ class KarmasScraper:
         return list(set(phones))
     
     def extract_social_media(self, text):
-        """Extract social media links"""
+        """
+        Extract social media links from text.
+
+        Returns:
+            dict: A dictionary where each key is a social media platform name (e.g., 'twitter', 'linkedin'),
+            and each value is a list of matching URLs/usernames found in the input text.
+        """
         social_patterns = {
             'twitter': r'twitter\.com/[a-zA-Z0-9_]+',
             'linkedin': r'linkedin\.com/in/[a-zA-Z0-9_-]+',
@@ -97,14 +103,20 @@ class KarmasScraper:
         return social_links
     
     def extract_crypto_wallets(self, text):
-        """Extract cryptocurrency wallet addresses"""
+        """
+        Extract cryptocurrency wallet addresses from text.
+
+        Returns:
+            dict: A dictionary where each key is a cryptocurrency name (e.g., 'bitcoin', 'ethereum')
+            and each value is a list of wallet addresses found in the input text.
+        """
         crypto_patterns = {
             'bitcoin': r'\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b',  # Bitcoin P2PKH/P2SH
             'ethereum': r'\b0x[a-fA-F0-9]{40}\b',  # Ethereum
             'litecoin': r'\b[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}\b',  # Litecoin
             'dogecoin': r'\bD{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}\b',  # Dogecoin
             'monero': r'\b4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}\b',  # Monero
-            'ripple': r'\br[0-9a-zA-Z]{24,34}\b',  # Ripple/XRP
+            'ripple': r'\br[a-km-zA-HJ-NP-Z1-9]{24,34}\b',  # Ripple/XRP (Base58)
         }
         
         wallets = {}
@@ -132,9 +144,13 @@ class KarmasScraper:
         return list(set(absolute_links))
     
     def check_xss_vulnerable(self, url):
-        """Basic XSS vulnerability check"""
-        from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
-        
+        """
+        Basic XSS vulnerability check.
+
+        Returns:
+            list: A list of dictionaries containing vulnerability details including
+            'type', 'payload', and 'url' for each potential XSS vulnerability found.
+        """
         xss_payloads = [
             '<script>alert(1)</script>',
             '"><script>alert(1)</script>',
@@ -147,7 +163,7 @@ class KarmasScraper:
         for payload in xss_payloads:
             # Handle existing query parameters
             params = parse_qs(parsed.query)
-            params['test'] = payload
+            params['test_xss'] = [payload]
             
             new_query = urlencode(params, doseq=True)
             test_url = urlunparse((
@@ -158,58 +174,90 @@ class KarmasScraper:
             response = self.make_request(test_url)
             
             if response and payload in response.text:
-                # Check if payload is in executable context (basic check)
-                if '<script>' in response.text and 'alert(1)' in response.text:
-                    vulnerabilities.append({
-                        'type': 'Potential XSS',
-                        'payload': payload,
-                        'url': test_url
-                    })
-                    self.log(f"Potential XSS found with payload: {payload}", "WARNING")
+                # Payload reflected in response - potential XSS
+                vulnerabilities.append({
+                    'type': 'Potential XSS',
+                    'payload': payload,
+                    'url': test_url
+                })
+                self.log(f"Potential XSS found with payload: {payload}", "WARNING")
         
         return vulnerabilities
     
     def check_sql_injection(self, url):
-        """Basic SQL injection check"""
-        from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
-        
+        """
+        Basic SQL injection check.
+
+        Returns:
+            list: A list of dictionaries containing vulnerability details including
+            'type', 'payload', 'url', 'parameter', and 'error' for each potential SQLi vulnerability found.
+        """
         sql_payloads = ["'", "' OR '1'='1", "1' OR '1'='1"]
         
         vulnerabilities = []
         parsed = urlparse(url)
+        params = parse_qs(parsed.query)
         
         for payload in sql_payloads:
-            # Handle existing query parameters
-            params = parse_qs(parsed.query)
-            params['id'] = payload
-            
-            new_query = urlencode(params, doseq=True)
-            test_url = urlunparse((
-                parsed.scheme, parsed.netloc, parsed.path,
-                parsed.params, new_query, parsed.fragment
-            ))
-            
-            response = self.make_request(test_url)
-            
-            if response:
-                sql_errors = [
-                    'SQL syntax',
-                    'mysql_fetch',
-                    'ORA-',
-                    'PostgreSQL',
-                    'SQLite',
-                ]
-                
-                for error in sql_errors:
-                    if error.lower() in response.text.lower():
-                        vulnerabilities.append({
-                            'type': 'Potential SQL Injection',
-                            'payload': payload,
-                            'url': test_url,
-                            'error': error
-                        })
-                        self.log(f"Potential SQLi found with payload: {payload}", "WARNING")
-                        break
+            if params:
+                for param in params:
+                    # Copy params for each test
+                    test_params = params.copy()
+                    # Replace the value with the payload, preserving list structure
+                    test_params[param] = [payload]
+                    new_query = urlencode(test_params, doseq=True)
+                    test_url = urlunparse((
+                        parsed.scheme, parsed.netloc, parsed.path,
+                        parsed.params, new_query, parsed.fragment
+                    ))
+                    response = self.make_request(test_url)
+                    if response:
+                        sql_errors = [
+                            'SQL syntax',
+                            'mysql_fetch',
+                            'ORA-',
+                            'PostgreSQL',
+                            'SQLite',
+                        ]
+                        for error in sql_errors:
+                            if error.lower() in response.text.lower():
+                                vulnerabilities.append({
+                                    'type': 'Potential SQL Injection',
+                                    'payload': payload,
+                                    'url': test_url,
+                                    'parameter': param,
+                                    'error': error
+                                })
+                                self.log(f"Potential SQLi found in parameter '{param}' with payload: {payload}", "WARNING")
+                                break
+            else:
+                # If no parameters, add a unique one for testing
+                test_params = {'test_sqli': [payload]}
+                new_query = urlencode(test_params, doseq=True)
+                test_url = urlunparse((
+                    parsed.scheme, parsed.netloc, parsed.path,
+                    parsed.params, new_query, parsed.fragment
+                ))
+                response = self.make_request(test_url)
+                if response:
+                    sql_errors = [
+                        'SQL syntax',
+                        'mysql_fetch',
+                        'ORA-',
+                        'PostgreSQL',
+                        'SQLite',
+                    ]
+                    for error in sql_errors:
+                        if error.lower() in response.text.lower():
+                            vulnerabilities.append({
+                                'type': 'Potential SQL Injection',
+                                'payload': payload,
+                                'url': test_url,
+                                'parameter': 'test_sqli',
+                                'error': error
+                            })
+                            self.log(f"Potential SQLi found in parameter 'test_sqli' with payload: {payload}", "WARNING")
+                            break
         
         return vulnerabilities
     
@@ -364,7 +412,7 @@ Examples:
     print("🚀 kArma's Web Scraper - Red Team Edition 🏴‍☠️")
     print("="*60)
     print("A badass tool for red teamers")
-    print("#keepITsimpel #weareLegion")
+    print("#keepITsimple #weareLegion")
     print("="*60 + "\n")
     
     try:

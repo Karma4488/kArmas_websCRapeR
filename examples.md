@@ -174,6 +174,6 @@ python karmas_scraper.py -u https://target.com --no-stealth
 - Report vulnerabilities responsibly
 - Be ethical in your red teaming
 
-#weareLegion #keepITsimpel
+#weareLegion #keepITsimple
 
 **by kArmaSec**

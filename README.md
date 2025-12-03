@@ -113,17 +113,17 @@ Always obtain proper authorization before scanning any target.
 Find the funny links 
 
 
-#weareLegion #keepITsimpel
+#weareLegion #keepITsimple
 
 for my Anonymous & Lulzsec friends 
 
 made in l0v3 by kArmasec
 
-from one redhat tp another 
+from one redhat to another 
 
 RedTeamer
 
 
 ---
 
-*Remember: With great power comes great responsibility.be a badass, but be ethical.* 
+*Remember: With great power comes great responsibility. Be a badass, but be ethical.* 

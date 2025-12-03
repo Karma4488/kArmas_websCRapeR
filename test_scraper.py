@@ -141,7 +141,7 @@ def main():
         
         print("\n" + "="*60)
         print("✓ All tests passed! The scraper is badass and ready! 💪")
-        print("#weareLegion #keepITsimpel")
+        print("#weareLegion #keepITsimple")
         print("by kArmaSec")
         print("="*60)
         
