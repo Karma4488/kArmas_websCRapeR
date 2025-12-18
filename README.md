@@ -31,5 +31,5 @@ find the funny links🚀
 #weareLegion
 
 
-made in l0v3 by kArmaSec
+ħⱥȼҟ Ⱦħē Ꝑłⱥꞥēⱦ
 
