@@ -14,7 +14,7 @@ easy to install
 remember run it in a venv environment 
 <python -m venv .example.py>
 
-start upgrade pip
+upgrade pip
 cd .env
 chmod +x *
 source bin/activate
