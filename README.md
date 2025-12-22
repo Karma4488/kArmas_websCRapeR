@@ -192,7 +192,7 @@ We welcome contributions from red teamers, security researchers, and developers!
 - Submit issues for bugs or feature requests
 - Create pull requests for improvements
 
-Find the funny links 🚀
+Find the funny links 
 
 ## License
 
@@ -206,7 +206,7 @@ for my Anonymous & Lulzsec friends
 
 made in l0v3 by kArmasec
 
-from one redhat to another 🎩
+from one redhat to another 
 
 RedTeamer
 
