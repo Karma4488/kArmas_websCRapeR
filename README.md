@@ -1,6 +1,6 @@
-# kArmas_websCRapeR 
+ kArmas_websCRapeR 
 
-**A badass web scraping tool for red teamers**
+A badass web scraping tool for red teamers**
 
 Quick script in Python - made it a proper repo/tool for the community!  
 Easy to install and use with a professional project structure.
@@ -13,12 +13,12 @@ Easy to install and use with a professional project structure.
 - **Information Gathering**
   - 📧 Email extraction
   - 📞 Phone number extraction
-  - 📱 Social media link discovery (Twitter, LinkedIn, Facebook, GitHub, Instagram)
+  - 📱 Social media link discovery (Twitter,    LinkedIn, Facebook, GitHub, Instagram)
   - 💰 Cryptocurrency wallet detection (Bitcoin, Ethereum, Litecoin, Dogecoin, Monero, Ripple)
   - 🌐 Subdomain enumeration
   - 🔗 Link crawling
 
-- **Red Team Capabilities**
+Red Team Capabilities
   - ⚠️ Basic XSS vulnerability detection
   - 💉 Basic SQL injection testing
   - 🥷 Stealth mode with user-agent rotation
