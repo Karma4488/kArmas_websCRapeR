@@ -1,4 +1,4 @@
-# kArmas_websCRapeR 🚀🏴‍☠️
+# kArmas_websCRapeR 
 
 **A badass web scraping tool for red teamers**
 
