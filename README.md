@@ -8,7 +8,7 @@ Easy to install and use with a professional project structure.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 
-## Features 💪 
+## Features 
 
 - **Information Gathering**
   - 📧 Email extraction
