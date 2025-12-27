@@ -2,7 +2,8 @@
 """
 kArma's Web Scraper - Red Team Edition
 A badass web scraping tool for red teamers
-by kArmaSec
+Made in l0v3 bY kArmasec
+4thelulz
 """
 
 import requests
